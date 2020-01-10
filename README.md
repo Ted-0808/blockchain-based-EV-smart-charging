@@ -1,2 +1,3 @@
 # blockchain-based-EV-smart-charging
 this project is composed of two part: smart contracts to interact with blockchain and smart charging algorithm to better coordinate the EV charging activities for a particular charging station.
+the UX should consider both EV customers and CPOs. FOr EV users, they need to be well informed with the battery status of the EV during the charging process (i.e. % SOC or kWh increase) and make sure their charging need can be met. For CPOs, they should be able to see the real time charging status of their charging points (at which power level the CP is charging the EV, compared with the rated power) it can be a cockpit dashboard.
