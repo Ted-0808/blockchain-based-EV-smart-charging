@@ -17,3 +17,7 @@ $$steps to formulate a concrete work plan$$
    
 
  
+$$function design for the product$$
+our cloud architecture shows that all datas are from CPO's backend and HEMS backend(if PV data is available), therefore it is important to consider which data among all are important for us to record in blockchain. Billing and smart charging are the two major functions to be realized in blockchain ecosystem. Nornally, if to start a charging session, the billing system is done by CPO. We can copy this and make it on-chain. When they want to actively control the charging power, they shoulod also be able to do through CPO's backend. What we want is help them to make such decision by smart charging algorithm with a certain extra input data. 
+
+To sum up, the blockchain is not doing any computationally heavy tasks and only responsible for data recording and billing. That is to say, the smart charging and flexibility calculation are taken placce in off-chain environment. since the smart charging algorithm is written in Python, web3.py is chosen to connect the simulation program and smart contracts.
