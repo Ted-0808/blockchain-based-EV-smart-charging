@@ -14,7 +14,11 @@ $$steps to formulate a concrete work plan$$
    PV (inverter):
    Battery: capacity, electricity available, etc.
 4. there will be another smart contract to allow status update for all assets. [SC2 for asset's status update]
-   
+   with the smart charging algorithm running every timestep (15 minutes), there could be the case that several CPs are supposed to alter    their power supply to the chargeing EV. we need both data record and implementation.
+5. A smart contract for billing and flexibility token allocation between CPO and users is also necessary. [SC3 for token transfer]
+   token transfer is based on two things: the actual electricity consumption for charging, which should be precisely measured by built-    in metering device in the CP, and the total flexibility user contributed during his/her charging process. This will be calculated in    the smart charging algorithm.
+  
+6. last but not least, the whole smart charging algorithm should be stored to the blockchain so that people can verifiy this (but how?)
 
  
 $$function design for the product$$
