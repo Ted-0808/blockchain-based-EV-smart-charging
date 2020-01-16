@@ -14,10 +14,11 @@ a workshop on user journey or user story ampping is recommended in order to gain
 
 as our client only want to see the demonstration of our product to integrate into their charging assets but no other extra expectation. 
 
-After the concept and ideas are clear, we need to plot an architecture because what we are offering is a software solution to our clients.  
+After the concept and ideas are clear, we need to plot an architecture because what we are offering to our clients is a software solution. Since we try to avoid the involvement of hardware, all the data will be provided by our clients and, to some extent, we are highly dependent on their backend. 
+
 
 We start with a project architecture
 ![Project architecture](images/project_architecture.png)
 
 
-Next thing is to consider the feasibility of the idea, if not then what's the back up plan or alternative. i.e. What role the Blockchain should play in this project.
+Next thing is to consider the feasibility of the idea, if not then what's the back up plan or alternative. i.e. What role the Blockchain should play in this project. It is not a good idea to have data manipulation on the blockchain. 
