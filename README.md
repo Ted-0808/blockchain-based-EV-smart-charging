@@ -23,6 +23,7 @@ $$steps to formulate a concrete work plan$$
 
 $$porject architecture$$
 
+![project_architecture](https://user-images.githubusercontent.com/48090782/73442829-d13df080-4355-11ea-9c9f-13e3ae5118bf.png)
 
 
 
