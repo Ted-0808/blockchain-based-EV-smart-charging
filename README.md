@@ -25,7 +25,7 @@ $$porject architecture$$
 
 ![project_architecture](https://user-images.githubusercontent.com/48090782/73442829-d13df080-4355-11ea-9c9f-13e3ae5118bf.png)
 
-
+A Oli Move backend server is proposed to receive data from CPO's backend and process user registration and charging requests. It sends the necessary data to the blockchain. There are four conponents: a database to store all CPs information which are required for running smart charging algorithm; the smart charging algorithm; an eWallet to manage EV users' blockchain account; and a Ethereum client for interacting with the Blockchain.
 
 3. all CPs and PV facilities are regarded as assets so that they should be registered in the smart contract. [SC1 for asset registration] 
    information to be included in the registration smart contract:
