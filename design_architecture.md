@@ -22,3 +22,7 @@ We start with a project architecture
 
 
 Next thing is to consider the feasibility of the idea, if not then what's the back up plan or alternative. i.e. What role the Blockchain should play in this project. It is not a good idea to have data manipulation on the blockchain. 
+
+now let's look into the timeline. In our model, each timestep is regarded as a 15 minutes interval. and users are free to send charging requests during the first 14 minutes. In the last minute of the timestep, a system optimization is carried out. Any new charging request received during this period can only start charging after the next timestep.
+
+
