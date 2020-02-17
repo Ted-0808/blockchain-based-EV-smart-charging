@@ -18,18 +18,23 @@ _cpGroup = 'G1'
 timestep = 15 # in minutes
 
 # update the power of CP for the next time step
-def database_update(_cpid, changes):
-    query = {"evse_id":_cpid}
+def database_update(_evseid, changes):
+    query = {"evse_id":_evseid}
     collection.update_one(query,changes)
 
 ## this optimization should be triggered every 15 minutes
 def optimization(_cpGroup, powerLimit):
     # get updated status from cpDB
-    charging_pool =[]
-    chargingPoolNext =[]
+    
+    chargingPoolNext =[] # the expected charging status of this charging group after by the end of next timestep (if everything stick to the optimization)
     totalPowerDemand =0
     flex_supply =0
-    dbcopy =[]
+    dbcopy =[] # transform from cursor object (db query result) to a list
+    charging_pool =[] # abstract only interested field for calculation 
+    
+    # pickout all finished charging events, return the status to 'A'.
+    #use pymongo to delete all finished events   
+    collection.update_many({'cp_group':'G1','status':'O',"$or":[{'chargingInfo.E':{"$lte":0}},{'chargingInfo.T':0}]},{"$set":{'status': 'A','updatedPower': 0,'chargingInfo.user_id': None, 'chargingInfo.E': None,'chargingInfo.T': None,}})
     
     for i in collection.find({'cp_group':_cpGroup,'status':'O'},{'_id':0,'evse_id':1, 'powerValue':1,'chargingInfo.user_id':1, 'chargingInfo.E':1,'chargingInfo.T':1}):
         dbcopy.append(i)
@@ -38,6 +43,8 @@ def optimization(_cpGroup, powerLimit):
     for i in dbcopy:
         charging_pool.append({"evse_id":i['evse_id'],"CPpower":i['powerValue'],"userID":i['chargingInfo']['user_id'],"E":i['chargingInfo']['E'],"T":i['chargingInfo']['T']})
         print(charging_pool)
+        
+    # consider the last timestep cases
     
     for i in charging_pool:
         i['F_t'] = (i['T'] - i['E']/i['CPpower']*60)
