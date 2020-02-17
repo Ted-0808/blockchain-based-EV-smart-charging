@@ -25,4 +25,6 @@ Next thing is to consider the feasibility of the idea, if not then what's the ba
 
 now let's look into the timeline. In our model, each timestep is regarded as a 15 minutes interval. and users are free to send charging requests during the first 14 minutes. In the last minute of the timestep, a system optimization is carried out. Any new charging request received during this period can only start charging after the next timestep.
 
+![DER revenue allocation-smart_charging_timeline](https://user-images.githubusercontent.com/48090782/74664648-66d2e000-519e-11ea-83f5-840d1a969a04.jpg)
+The smart charging package is composed with two major functions, namely charging_request_simulation and system_charging_optimization. 
 
