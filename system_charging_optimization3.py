@@ -1,36 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[36]:
-
 
 from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 db = client['cpDB']
 collection = db.test1
-
-
-# In[ ]:
-
-
-
-
-
-# In[37]:
-
-
 timestep = 15 # in minutes
-
-
-# In[38]:
-
 
 powerLimit = 44
 flex_level = 11 # if the flex power of a charging event is greater than 11 kW, it is catigorized to high flex group, otherwise, low flex group
-
-
-# In[39]:
-
 
 def database_update(_cpid, changes):
     query = {"evse_id":_cpid}
@@ -50,8 +29,7 @@ def optimization(powerLimit): #in real situation, _cpGroup shoud be included
     
     
     #use pymongo to change status of all finished events, think about how to record flexibility?! the values will be deleted once the EV is driven away 
-    
-    #collection.update_many({'cp_group':'G1','status':'O',"$or":[{'chargingInfo.E':{"$lte":0}},{'chargingInfo.T':0}]},{"$set":{'status': 'Finished','updatedPower': 0, 'chargingInfo.E': None,'chargingInfo.T': None}})
+    # for the last step events, in the next time step we update the status to 'finished'
     collection.update_many({'cp_group':'G1','status':'L'},{"$set":{'status': 'Finished','updatedPower': 0}})
     
     #for the last timestep events, change status, update new power
@@ -118,22 +96,6 @@ def optimization(powerLimit): #in real situation, _cpGroup shoud be included
         
     else :    
         flex_demand = totalPowerDemand - powerLimit
-        '''
-        #update db with reduced power proportional to each CP, and add flex_rec to each document 
-        for i in charging_pool:
-            
-            _updatedPower = round((i['CPpower'] - flex_demand/flex_supply *i['F_p']),1)
-            _flex = round((i['CPpower'] - _updatedPower)*(timestep/60),1)
-            newPowerLevel = {"$set":{"updatedPower":_updatedPower}}
-            database_update(i['evse_id'], newPowerLevel)
-            newFlex = {"$inc":{"chargingInfo.flex_rec":_flex}}
-            database_update(i['evse_id'], newFlex)
-            
-            ### for simulation
-            _energy = - round(_updatedPower*0.25,1)
-            _updatedStatus = {"$inc":{"chargingInfo.E":_energy,'chargingInfo.T': -timestep}}            
-            database_update(i['evse_id'], _updatedStatus)    
-            '''
         if flex_demand <= flex_supply_G1: # high flex group can solve the grid congestion (this indicate flex_G1 not equal to 0)
             #only this group will experience a reduced power
             for i in charging_pool:
@@ -202,28 +164,6 @@ def optimization(powerLimit): #in real situation, _cpGroup shoud be included
         
             print('all updated3')
 
-
-# In[42]:
-
-
-for t in range(0,20):
-    print("round %d " %t)
-    optimization(powerLimit)
-
-
-# In[46]:
-
-
-optimization(powerLimit)
-
-
-# In[1]:
-
-
-round(8.23445134,1)
-
-
-# In[ ]:
 
 
 
