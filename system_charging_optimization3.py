@@ -54,6 +54,7 @@ def optimization(powerLimit): #in real situation, _cpGroup shoud be included
         print(charging_pool)
     
     for i in charging_pool:
+        totalPowerDemand += i['CPpower'] ## this is ideal case, in reality, some EV can not charge with full CP power!!!
         i['F_t'] = max(round((i['T'] - (i['E']/i['CPpower'])*60),1),0) ##cannot be negative value!!!, correct it! 
         if (i['F_t']>= timestep):
             i['F_p'] = i['CPpower']
@@ -63,22 +64,13 @@ def optimization(powerLimit): #in real situation, _cpGroup shoud be included
         # classify into two flex groups
         if (i['F_p']>= flex_level):
             i['flex_priority'] = 1 # highest priority from 1
+            flex_supply_G1 += i['F_p']
         else:
             i['flex_priority'] = 2
+            flex_supply_G2 += i['F_p']
             #count number of events in low flex group
             num_G2 += 1        
 
-                             
-        
-        totalPowerDemand += i['CPpower'] ## this is ideal case, in reality, some EV can not charge with full CP power!!!
-        
-        if (i['flex_priority'] == 1):
-            flex_supply_G1 += i['F_p']
-        else:
-            flex_supply_G2 += i['F_p']
-            
-        #flex_supply += i['F_p']
-        #i['flex_rec']= 0 #flexibility record
     
     # allocate the charging power again and send back to cpDB
     if totalPowerDemand <= powerLimit:
