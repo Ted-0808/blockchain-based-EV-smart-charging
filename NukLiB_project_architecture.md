@@ -18,7 +18,7 @@ After the concept and ideas are clear, we need to plot an architecture because w
 
 
 We start with a project architecture
-![Project architecture](images/project_architecture.png)
+![project_architecture_NukLiB](https://user-images.githubusercontent.com/48090782/75171740-68ffe600-572c-11ea-8fee-f6f90bdbf406.jpg)
 
 
 Next thing is to consider the feasibility of the idea, if not then what's the back up plan or alternative. i.e. What role the Blockchain should play in this project. It is not a good idea to have data manipulation on the blockchain. 
